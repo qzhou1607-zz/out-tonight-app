@@ -3,34 +3,45 @@
 <html>
 
 	<head>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
+		<title>Out Tonight</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<link rel="icon" href="/public/img/glass-sm.png">
 	</head>
-
-	<header>
-		<p>Welcome, <span id="display-name"></span>!</p>
-		<a class="menu" href="/profile">Profile</a>
-		<p>|</p>
-		<a class="menu" href="/logout">Logout</a>
-	</header>
+	<nav class="navbar navbar-inverse">
+	  <div>
+	    <div class="navbar-header">
+	    	
+	      	<span class="out-tonight-text" href="#">Out Tonight</span>
+	      	<img src="/public/img/glass-lg.png" style="width:80px;"/>
+	    </div>
+	    <div class="twitter-login navbar-right">
+	    		@<span id="profile-username">User</span>
+	    		<a id="log-toggle" href="/auth/twitter">
+					<div class="btn" id="login-btn">
+						<img class="twitter-logo" src="/public/img/icon-twitter-circular.png" alt="twitter logo" />
+						<span id="log-btn-toggle">Login</span>
+					</div>
+				</a>
+				
+		</div>
+	  </div>
+	</nav>
 
 	<body>
 		<div class="container">
-			<img src="/public/img/clementine_150.png" />
-			<br />
-			<p class="clementine-text">Clementine.js</p>
-		</div>
-	
-		<div class="container">
-			<p>You have clicked the button <span id="click-nbr"></span> times.</p>
-			<br />
-			<div class="btn-container">
-				<button type="submit" class="btn btn-add">CLICK ME!</button>
-				<button class="btn btn-delete">RESET</button>
+			<div class="search-input">
+				<input class="search-bar" placeholder="Find Bars in Your City...">
+				<button class="btn search-btn">Search</button>
 			</div>
+			<div class="search-result">
+				
+			</div>
+			
 		</div>
-		
+
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/clickController.client.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
