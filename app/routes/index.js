@@ -11,7 +11,7 @@ module.exports = function (app, passport) {
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
-			res.redirect('/login');
+			res.redirect('/');
 		}
 	}
 
@@ -38,8 +38,9 @@ module.exports = function (app, passport) {
 		.get(search);
 		
 	app.route('/api/:id')
-		.get(isLoggedIn, function (req, res) {
-			 Users.findOne({'twitter.id':req.user.twitter.id},{'_id':false})
+		.get(function (req, res) {
+			if(req.user) { 
+				Users.findOne({'twitter.id':req.user.twitter.id},{'_id':false})
                 .exec( function(err,result) {
                     if(err) {
                         throw err;
@@ -48,7 +49,10 @@ module.exports = function (app, passport) {
                          res.json(result);
                     } 
                     
-                })
+                });
+			} else {
+				res.json({status:"guest"});
+			}
 		});
 
 	app.route('/auth/twitter')
@@ -63,9 +67,5 @@ module.exports = function (app, passport) {
 	app.route('/api/:id/clicks')
 		.post(isLoggedIn,clickHandler.addClick)
 		.delete(isLoggedIn,clickHandler.removeClick)
-		.get(isLoggedIn,clickHandler.getClicks)
-	// app.route('/api/:id/clicks')
-	// 	.get(isLoggedIn, clickHandler.getClicks)
-	// 	.post(isLoggedIn, clickHandler.addClick)
-	// 	.delete(isLoggedIn, clickHandler.resetClicks);
+		.get(clickHandler.getClicks)
 };

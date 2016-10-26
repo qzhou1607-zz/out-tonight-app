@@ -25,9 +25,9 @@
    					+	'</div>'
    				+	'</div>'
    				+  '<div class="people">'
-					+     '<div><span class="number" id="' + yelpID + '"></span> people are going.</div>'
 					+     '<button class="add" data-id="' + yelpID + '">Going</button>'
 					+     '<button class="delete" data-id="' + yelpID + '">Not Going</button>'
+					+     '<div><span class="number" id="' + yelpID + '"></span> people are going.</div>'
 					+  '<div>'
    			+	'</div>';
 		return templ;
@@ -46,7 +46,17 @@
       peopleCounts.innerHTML = count;
    }
    
-   
+   // function labelSelected() {
+   //    ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) { //get user data
+   //       var userObject = JSON.parse(data);
+   //       if (userObject.status != 'guest') {
+   //           var bars = userObject.bars;
+   //           bars.forEach(function(id) {
+   //              document.getElementById(id).addClass('selected');
+   //           });
+   //       }
+   //    })
+   // }
    
    //search
    searchBtn.addEventListener('click',function() {
@@ -72,9 +82,14 @@
          for(var i = 0; i < allPeopleCounts.length; i++) {
             updateClicks(allPeopleCounts[i].getAttribute('id'));
          }
-        
+         
+         //get user selected options
+         //labelSelected();
+         
          var addBtn = document.querySelectorAll('.add') || null;
          var deleteBtn = document.querySelectorAll('.delete') || null;
+         
+         
          
           //add me binding;
          if (addBtn != null) {
@@ -82,10 +97,13 @@
                addBtn[i].addEventListener('click',function(event) {
                   var yelpID = event.target.getAttribute("data-id");
                   ajaxFunctions.ajaxRequest('POST',(clickUrl + '?yelpID=' + yelpID), function(data) {
-                        console.log(data);
                         updateClicks(yelpID);
                   });
                });
+               
+               if (logText.innerHTML != 'Logout') {
+                  addBtn[i].style.display = 'none';
+               }
             }
          }
          
@@ -99,6 +117,10 @@
                      updateClicks(yelpID);
                   });
                });
+               
+               if (logText.innerHTML != 'Logout') {
+                  deleteBtn[i].style.display = 'none';
+               }
             }
          }
          
@@ -111,16 +133,17 @@
    //load authenticate info
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
       var userObject = JSON.parse(data);
-      if (profileUsername !== null) {
+      if (profileUsername !== null && userObject.status != 'guest') {
          //toggle login/logout
-         //updateHtmlElement(userObject, profileUsername, 'twitter.displayName'); 
          profileUsername.innerHTML = userObject.twitter.displayName;
          logLink.href = '/logout';
          logText.innerHTML = 'Logout';
          
          //automatic search
-         searchBar.value = userObject.location;
-         searchBtn.click();
+         if(userObject.location) {
+            searchBar.value = userObject.location;
+            searchBtn.click();
+         }
       }
 
    }));

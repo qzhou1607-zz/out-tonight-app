@@ -215,6 +215,7 @@ span {
 	width:19.3%;
 	font-family: 'Righteous', cursive;
 	color:white;
+	vertical-align:top;
 }
 
 #login-btn span, #logout-btn span {
@@ -223,6 +224,7 @@ span {
 
 #logout-btn {
 	display:none;
+	background-color:rgb(255,223,186);
 }
 
 
@@ -262,4 +264,28 @@ input {
 }
 .bar-address {
 	font-size:0.8em;
+}
+.add, .delete {
+	border:none;
+	color:white;
+	margin-right:10px;
+	margin-bottom:10px;
+	padding:5px 10px;
+	border-radius:2px;
+}
+.add {
+	background-color:yellowgreen;
+	width:80%;
+}
+.delete {
+	background-color:rgb(255,223,186);
+	width:80%;
+}
+.people {
+	float:right;
+	text-align:center;
+}
+
+.btn:focus, input:focus, button:focus {
+  outline: none;
 }

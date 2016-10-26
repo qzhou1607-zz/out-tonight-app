@@ -10,13 +10,15 @@ var yelp = new Yelp({
     token_secret:process.env.YELP_TOKEN_SECRET
 });
 function search(req,res) {
-    //save location setting for user
-	Users
-	.findOneAndUpdate({ 'twitter.id': req.user.twitter.id }, {'location':req.query.location})
-	.exec(function (err, result) {
-			if (err) { throw err; }
-		}
-	);
+    //save location setting for user if logged in
+    if (req.user) {
+    	Users
+    	.findOneAndUpdate({ 'twitter.id': req.user.twitter.id }, {'location':req.query.location})
+    	.exec(function (err, result) {
+    			if (err) { throw err; }
+    		}
+    	);
+    }
     
     //search on yelp
     yelp.search({ term:'night life', location:req.query.location})
