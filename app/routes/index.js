@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var Users = require(path + '/app/models/users.js');
 var search = require(path + '/app/controllers/search.server.js');
 
 module.exports = function (app, passport) {
@@ -38,7 +39,16 @@ module.exports = function (app, passport) {
 		
 	app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
-			res.json(req.user.twitter);
+			 Users.findOne({'twitter.id':req.user.twitter.id},{'_id':false})
+                .exec( function(err,result) {
+                    if(err) {
+                        throw err;
+                    } 
+                    if (result) {
+                         res.json(result);
+                    } 
+                    
+                })
 		});
 
 	app.route('/auth/twitter')
@@ -50,6 +60,10 @@ module.exports = function (app, passport) {
 			failureRedirect: '/'
 		}));
 
+	app.route('/api/:id/clicks')
+		.post(isLoggedIn,clickHandler.addClick)
+		.delete(isLoggedIn,clickHandler.removeClick)
+		.get(isLoggedIn,clickHandler.getClicks)
 	// app.route('/api/:id/clicks')
 	// 	.get(isLoggedIn, clickHandler.getClicks)
 	// 	.post(isLoggedIn, clickHandler.addClick)
