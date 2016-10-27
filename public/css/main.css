@@ -10,7 +10,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 60px 0;
 	background-color: rgb(237,223,222)
 }
 
@@ -178,6 +178,7 @@ span {
 	padding-bottom:10px;
 	padding-left:70px;
 	padding-right:70px;
+	text-align: center;
 }
 
 .navbar-right {
@@ -190,7 +191,6 @@ span {
 	font-size:3em;
 	color:yellowgreen;
 	opacity:0.8;
-	float:left;
 }
 
 .twitter-logo {
@@ -288,4 +288,76 @@ input {
 
 .btn:focus, input:focus, button:focus {
   outline: none;
+}
+
+.footer {
+	background-color: rgba(170,152,169,0.9);
+    height: 80px;
+    border-top: solid 10px rgb(179,158,181);
+    font-family: 'Righteous', cursive;
+    color:white;
+}
+.footer .container {
+	padding:0;
+}
+#yelp-logo {
+	display:inline;
+}
+#author-name a{
+	color:rgb(204,236,117);
+}
+#author-github a {
+	color:rgb(223,247,158);
+}
+#author-codepen a {
+	color:rgb(244,255,214);
+}
+a:hover, a:focus {
+	text-decoration: none;
+}
+
+/*media query*/
+
+@media (max-with:768px) {
+	.container {
+		width:auto;
+	}
+}
+
+@media (max-width:730px) {
+	.container .search-bar {
+		width:100%;
+		margin-bottom: 10px;
+	}
+	.container .search-btn {
+		width:100%;
+	}
+}
+
+@media (max-width:600px) {
+	.bar-img, .bar-info {
+		float:none;
+		margin-right:0;
+		margin-bottom:10px;
+		width:100%;
+		text-align: center;
+	}
+	.people {
+		float:none;
+	}
+	#rating-img {
+		display:inline;
+	}
+	.navbar-inverse {
+		padding-left:0;
+		padding-right:0;
+	}
+	
+}
+
+@media (max-width:320px) {
+	.container {
+		padding-left:10px;
+		padding-right:10px;
+	}
 }
